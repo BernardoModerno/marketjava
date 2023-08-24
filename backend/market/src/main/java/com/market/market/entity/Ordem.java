@@ -30,7 +30,7 @@ public class Ordem implements Serializable{
     @ManyToOne
     private Usuario usuario;
     private String enderecoEnvio;
-    private BigDecimal quantidade;
+    private BigDecimal quantia;
     private BigDecimal envio;
     private BigDecimal total;
     @Enumerated(EnumType.STRING)
