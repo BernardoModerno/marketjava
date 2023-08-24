@@ -1,5 +1,6 @@
 package com.market.market.entity;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -14,7 +15,7 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Carrinho {
+public class Carrinho implements Serializable {
     
     @Id
     private String id;
