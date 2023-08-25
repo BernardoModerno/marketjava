@@ -3,8 +3,10 @@ import React from 'react';
 import { Menu } from 'primereact/menu';
 import { Link } from 'react-router-dom';
 
-const Sidebar = () => {
+import { useAuth } from '../auth/useAuth';
 
+const Sidebar = () => {
+    const { signout } = useAuth();
     const items = [
         {
             label: "Dashboard",
@@ -43,7 +45,7 @@ const Sidebar = () => {
             }
         },
         {
-            label: "Produtos",
+            label: "Produto",
             icon: "pi pi-box",
             template: (item, options) => {
                 return (
@@ -65,6 +67,11 @@ const Sidebar = () => {
                     </Link>
                 )
             }
+        },
+        {
+            label: "Sign Out",
+            icon: "pi pi-sign-out",
+            command: () => signout()
         }
     ]
 
