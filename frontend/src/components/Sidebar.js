@@ -19,6 +19,18 @@ const Sidebar = () => {
             }
         },
         {
+            label: "Ordens",
+            icon: "pi pi-shopping-cart",
+            template: (item, options) => {
+                return (
+                    <Link to="/admin/ordem" className={options.className}>
+                        <span className={options.iconClassName}></span>
+                        <span className={options.labelClassName}>{item.label}</span>
+                    </Link>
+                )
+            }
+        },
+        {
             label: "Categorias",
             icon: "pi pi-tags",
             template: (item, options) => {
@@ -41,12 +53,25 @@ const Sidebar = () => {
                     </Link>
                 )
             }
+        },
+        {
+            label: "Usuário",
+            icon: "pi pi-users",
+            template: (item, options) => {
+                return (
+                    <Link to="/admin/usuario" className={options.className}>
+                        <span className={options.iconClassName}></span>
+                        <span className={options.labelClassName}>{item.label}</span>
+                    </Link>
+                )
+            }
         }
     ]
 
     return (
-        <div>
-            <Menu model={items} className="sidebar" />
+        <div className="sidebar">
+            <h3>Sidebar</h3>
+            <Menu model={items} />
         </div>
     )
 }
