@@ -44,6 +44,13 @@ public class UsuarioController {
         return usuarioService.edit(usuario);
     }
 
+    @PutMapping("/profile")
+    public Usuario updateProfile(@RequestBody Usuario usuario) {
+        Usuario old = usuarioService.findById(usuario.getId());
+        usuario.setPassword(old.getPassword());
+        return usuarioService.edit(usuario);
+    }
+
     @DeleteMapping("/usuario/{id}")
     public void deleteById(@PathVariable("id") String id) {
         usuarioService.deleteById(id);
