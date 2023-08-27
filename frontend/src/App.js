@@ -17,6 +17,7 @@ import ProdutoAdminListPage from './pages/admin/ProdutoAdminListPage';
 import HomePage from './pages/HomePage';
 import SigninPage from './pages/SigninPage';
 import SignupPage from './pages/SignupPage';
+import ProfileUserPage from './pages/user/ProfileUserPage';
 
 const App = () => {
   return (
@@ -30,6 +31,11 @@ const App = () => {
         <Route path="/user/dashboard" element={
           <ProtectedRoute userRole="user">
             <DashboardUserPage />
+          </ProtectedRoute>
+        } />
+        <Route path="/user/profile" element={
+          <ProtectedRoute userRole="user">
+            <ProfileUserPage />
           </ProtectedRoute>
         } />
         <Route path="/admin/dashboard" element={
