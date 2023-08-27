@@ -6,8 +6,29 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../auth/useAuth';
 
 const Sidebar = () => {
-    const { signout } = useAuth();
-    const items = [
+    const { signout, user } = useAuth();
+
+    const userMenus = [
+        {
+            label: "Dashboard",
+            icon: "pi pi-th-large",
+            template: (item, options) => {
+                return (
+                    <Link to="/user/dashboard" className={options.className}>
+                        <span className={options.iconClassName}></span>
+                        <span className={options.labelClassName}>{item.label}</span>
+                    </Link>
+                )
+            }
+        },
+        {
+            label: "Sign Out",
+            icon: "pi pi-sign-out",
+            command: () => signout()
+        }
+    ]
+
+    const adminMenus = [
         {
             label: "Dashboard",
             icon: "pi pi-th-large",
@@ -78,7 +99,7 @@ const Sidebar = () => {
     return (
         <div className="sidebar">
             <h3>Sidebar</h3>
-            <Menu model={items} />
+            <Menu model={user.role === "admin" ? adminMenus : userMenus} />
         </div>
     )
 }
