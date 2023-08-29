@@ -1,9 +1,9 @@
 import api from './api';
 
-export const findPenggunaById = async (id) => {
-    return await api.get(`/api/penggunas/${id}`)
+export const findUsuarioById = async (id) => {
+    return await api.get(`/api/usuario/${id}`)
 }
 
-export const updateProfile = async (pengguna) => {
-    return await api.put("/api/profile", pengguna);
+export const updateProfile = async (usuario) => {
+    return await api.put("/api/profile", usuario);
 }

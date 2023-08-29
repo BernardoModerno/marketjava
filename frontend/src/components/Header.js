@@ -14,7 +14,7 @@ const Header = () => {
                 </div>
                 <div className="flex-none">
                     {user.role === "user" && <div className="user-info">
-                        <Link to="/user/profile" className="profile">{user.nama}</Link>
+                        <Link to="/user/profile" className="profile">{user.nome}</Link>
                     </div>}
                 </div>
             </div>

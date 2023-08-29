@@ -117,15 +117,15 @@ const ProfileUserPage = () => {
                                         <label htmlFor="telefone">Telefone</label>
                                         <InputText id="telefone"
                                             required={true}
-                                            value={usuario.hp}
+                                            value={usuario.telefone}
                                             onChange={(e) => {
                                                 const val = (e.target && e.target.value) || '';
                                                 const _usuario = { ...usuario };
-                                                _usuario.hp = val;
+                                                _usuario.telefone = val;
                                                 setUsuario(_usuario);
                                             }}
                                         />
-                                        {!usuario.hp && <small className="p-error">Telefone é obrigatório</small>}
+                                        {!usuario.telefone && <small className="p-error">Telefone é obrigatório</small>}
                                     </div>
                                 </div>
 

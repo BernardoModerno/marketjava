@@ -9,7 +9,6 @@ import Forbidden from './components/Forbidden';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import CategoriaAdminPage from './pages/admin/CategoriaAdminPage';
 import DashboardAdminPage from './pages/admin/DashboardAdminPage';
-import DashboardUserPage from './pages/admin/DashboardUserPage';
 import ProdutoAdminCreatePage from './pages/admin/ProdutoAdminCreatePage';
 import ProdutoAdminDetailPage from './pages/admin/ProdutoAdminDetailPage';
 import ProdutoAdminEditPage from './pages/admin/ProdutoAdminEditPage';
@@ -17,6 +16,7 @@ import ProdutoAdminListPage from './pages/admin/ProdutoAdminListPage';
 import HomePage from './pages/HomePage';
 import SigninPage from './pages/SigninPage';
 import SignupPage from './pages/SignupPage';
+import DashboardUserPage from './pages/user/DashboardUserPage';
 import ProfileUserPage from './pages/user/ProfileUserPage';
 
 const App = () => {
