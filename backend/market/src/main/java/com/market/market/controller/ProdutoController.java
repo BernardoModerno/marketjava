@@ -34,6 +34,11 @@ public class ProdutoController {
         return produtoService.findById(id);
     }
 
+    @GetMapping("/produto/categoria/{id}")
+    public Produto findByCategoriaId(@PathVariable("id") String id) {
+        return produtoService.findByCategoriaId(id);
+    }
+
     @PostMapping("/produto")
     public Produto create(@RequestBody Produto produto) {
         return produtoService.create(produto);

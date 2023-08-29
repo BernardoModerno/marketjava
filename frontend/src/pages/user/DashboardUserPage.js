@@ -1,18 +1,20 @@
 import React from 'react';
 
-import MainPage from '../../components/MainPage';
+import Header from '../../components/Header';
 
 const DashboardUserPage = () => {
     return (
-        <MainPage>
-            <div className="main-content">
-                <div className="content">
-                    <div className="content-header">
-                        <h2>Dashboard</h2>
-                    </div>
+           <>
+           <Header />
+           <div className="main-content">
+            <div className="content">
+                <div className="content-header">
+                    <h2>Dashboard</h2>
                 </div>
             </div>
-        </MainPage>
+            </div>
+        </>
+       
     )
 }
 

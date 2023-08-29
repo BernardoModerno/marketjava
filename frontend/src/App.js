@@ -13,7 +13,6 @@ import ProdutoAdminCreatePage from './pages/admin/ProdutoAdminCreatePage';
 import ProdutoAdminDetailPage from './pages/admin/ProdutoAdminDetailPage';
 import ProdutoAdminEditPage from './pages/admin/ProdutoAdminEditPage';
 import ProdutoAdminListPage from './pages/admin/ProdutoAdminListPage';
-import HomePage from './pages/HomePage';
 import SigninPage from './pages/SigninPage';
 import SignupPage from './pages/SignupPage';
 import DashboardUserPage from './pages/user/DashboardUserPage';
@@ -23,7 +22,7 @@ const App = () => {
   return (
     <div>
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        {/* <Route path="/" element={<HomePage />} /> */}
         <Route path="/signin" element={<SigninPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/forbidden" element={<Forbidden />} />

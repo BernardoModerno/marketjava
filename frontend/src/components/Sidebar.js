@@ -1,11 +1,16 @@
 import React from 'react';
 
 import { Menu } from 'primereact/menu';
-import { Link } from 'react-router-dom';
+import {
+  Link,
+  useNavigate,
+} from 'react-router-dom';
 
 import { useAuth } from '../auth/useAuth';
 
 const Sidebar = () => {
+    
+    const navigate = useNavigate();
     const { signout, user } = useAuth();
 
     const userMenus = [
@@ -99,7 +104,7 @@ const Sidebar = () => {
     return (
         <div className="sidebar">
             <h3>Sidebar</h3>
-            <Menu model={user.role === "admin" ? adminMenus : userMenus} />
+            <Menu model={user.role === "admin" ? adminMenus : navigate("/user/dashboard")} />
         </div>
     )
 }

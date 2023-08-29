@@ -1,6 +1,7 @@
 package com.market.market.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,13 @@ public class ProdutoService {
     public Produto findById(String id) {
         return produtoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Produto com id "+ id +" não encontrado"));
+    }
+
+    public Produto findByCategoriaId(String id) {
+        Optional<Produto> obj = produtoRepository.findByCategoriaIdOrderByNomeAsc(id);
+        Produto entity = obj.orElseThrow(() -> new ResourceNotFoundException("Entidade não encontrada"));
+
+        return entity;
     }
 
     public Produto create(Produto produto) {
