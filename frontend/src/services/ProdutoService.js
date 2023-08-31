@@ -1,11 +1,16 @@
 import api from './api';
 
+//findAllProdutosPorCategoria
 export const findAllProduto = async () => {
     return await api.get("/api/produto");
 }
 
 export const findProdutoById = async (id) => {
     return await api.get(`/api/produto/${id}`);
+}
+
+export const findAllProdutosPorCategoria = async (id) => {
+    return await api.get(`/produto/categoria/${id}`);
 }
 
 export const createProduto = async (produto) => {
