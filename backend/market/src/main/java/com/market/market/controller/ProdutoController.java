@@ -35,7 +35,7 @@ public class ProdutoController {
     }
 
     @GetMapping("/produto/categoria/{id}")
-    public Produto findByCategoriaId(@PathVariable("id") String id) {
+    public List<Produto> findByCategoriaId(@PathVariable("id") String id) {
         return produtoService.findByCategoriaId(id);
     }
 

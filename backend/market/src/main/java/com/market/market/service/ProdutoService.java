@@ -32,11 +32,10 @@ public class ProdutoService {
                 .orElseThrow(() -> new ResourceNotFoundException("Produto com id "+ id +" não encontrado"));
     }
 
-    public Produto findByCategoriaId(String id) {
-        Optional<Produto> obj = produtoRepository.findByCategoriaIdOrderByNomeAsc(id);
-        Produto entity = obj.orElseThrow(() -> new ResourceNotFoundException("Entidade não encontrada"));
+    public List<Produto> findByCategoriaId(String id) {
+        return produtoRepository.findAllByCategoriaIdOrderByNomeAsc(id);
+                // .orElseThrow(() -> new ResourceNotFoundException("Entidade não encontrada"));
 
-        return entity;
     }
 
     public Produto create(Produto produto) {

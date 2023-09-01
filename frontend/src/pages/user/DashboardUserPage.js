@@ -8,69 +8,88 @@ import { Checkbox } from 'primereact/checkbox';
 import Header from '../../components/Header';
 import { APP_BASE_URL } from '../../configs/constants';
 import { findAllCategoria } from '../../services/CategoriaService';
-import { findAllProduto } from '../../services/ProdutoService';
+import {
+  findAllProduto,
+  findAllProdutosPorCategoria,
+} from '../../services/ProdutoService';
 
 const DashboardUserPage = () => {
   const [categorias, setCategorias] = useState([]);
-  const [categoriaId, setCategoriaId] = useState([]);
+  const [categoriaId, setCategoriaId] = useState('');
   const [selectedCategorias, setSelectedCategorias] = useState([]);
   const [produtos, setProdutos] = useState();
+  const [loading, setLoading] = useState(false);
   const [img, setImg] = useState();
 
   useEffect(() => {
     const loadCategoria = async () => {
       try {
         const response = await findAllCategoria();
-        setCategorias(response.data);
-        console.log(response.data);
+        setCategorias(response?.data);
+        console.log(response?.data);
       } catch (error) {
         console.error(error);
       }
     };
 
     loadCategoria();
-    getAllProdutos()
 
-    console.log(
-      "Categoria selecionada: " + categorias[selectedCategorias[0]]?.id
-    );
     console.log("Categoria selecionada: " + [...selectedCategorias]?.id);
   }, [selectedCategorias]);
 
+  useEffect(() => {
+    if (!categoriaId) getAllProdutos();
+  }, [selectedCategorias]);
+
+  useEffect(() => {
+    if (categoriaId) getProdutoPorCategoria();
+  }, [categoriaId]);
+
+
+
   const getAllProdutos = async () => {
     try {
+        setLoading(true);
         const response = await findAllProduto();
-        setProdutos(response.data);
+        setLoading(false);
+        setProdutos(response?.data);
+    } catch (error) {
+        setLoading(false);
+        console.error(error);
+    }
+  }
+
+  const getProdutoPorCategoria = async () => {
+    try {
+        setLoading(true);
+        const response = await findAllProdutosPorCategoria(categoriaId);
+        setLoading(false);
+        setProdutos(response?.data);
     } catch (error) {
         console.error(error);
+        setLoading(false);
     }
 }
 
-
-
-  //get filterd product
-  // const filterProduct = async () => {
-  //   try {
-  //     const response = await findAllProdutosPorCategoria(categoriaId);
-  //     setProdutos(response?.data);
-  //     console.log("Categoria de Produtos esta chegando???" + response?.data);
+  // const getAllProdutos = async () => {
+  //   if (!categoriaId) {
+  //     try {
+  //       const response = await findAllProduto();
+  //       setProdutos(response.data);
   //   } catch (error) {
-  //     console.error(error);
+  //       console.error(error);
   //   }
-  // };
-
-  // const user = JSON.parse(localStorage.getItem("user"));
-  // const fetchImage = async (foto) => {
-  //   const res = await fetch(`${APP_BASE_URL}/api/images/${foto}`, {
-  //     headers: {
-  //       Authorization: `Bearer ${user.token}`,
-  //     },
-  //   });
-
-  //   const imageBlob = await res.blob();
-  //   const imageObjectURL = URL.createObjectURL(imageBlob);
-  //   setImg(imageObjectURL);
-  // };
+  //   } else {
+  //     try {
+  //       const response = await findAllProdutosPorCategoria(categoriaId);
+  //       setProdutos(response?.data);
+  //       console.log("Categoria de Produtos esta chegando???" + response?.data);
+  //       console.log("Id por categoria UseState: " + categoriaId);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   }
+  // }
 
   const onCategoriaChange = (e) => {
     let _selectedCategorias = [...selectedCategorias];
@@ -83,14 +102,11 @@ const DashboardUserPage = () => {
 
     setSelectedCategorias(_selectedCategorias);
     setCategoriaId(e?.value?.id);
-    console.log("Categoria de Produtos esta chegando???" + selectedCategorias);
-    console.log("Categoria selecionada: " + selectedCategorias?.id);
     console.log("POSICAO DA CATEGORIA SELECIONADA ", e.value);
     console.log("Id da POSICAO DA CATEGORIA SELECIONADA " + e?.value?.id);
     console.log(
       "Id da POSICAO DA CATEGORIA SELECIONADA UseState " + categoriaId
     );
-    console.log("Categoria selecionada ", categorias[e.value]);
   };
 
   return (
@@ -120,6 +136,14 @@ const DashboardUserPage = () => {
             })}
           </div>
         </div>
+        <div className="d-flex flex-column mt-2">
+            <button
+              className="btn btn-danger"
+              onClick={() => window.location.reload()}
+            >
+              RESET FILTERS
+            </button>
+          </div>
       </div>
       <div className="col-md-12">
         <div className="content">

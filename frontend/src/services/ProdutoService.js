@@ -10,7 +10,7 @@ export const findProdutoById = async (id) => {
 }
 
 export const findAllProdutosPorCategoria = async (id) => {
-    return await api.get(`/produto/categoria/${id}`);
+    return await api.get(`/api/produto/categoria/${id}`);
 }
 
 export const createProduto = async (produto) => {
