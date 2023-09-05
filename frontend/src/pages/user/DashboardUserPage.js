@@ -4,8 +4,11 @@ import {
 } from 'react';
 
 import { Checkbox } from 'primereact/checkbox';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
-import Header from '../../components/Header';
+import { useCart } from '../../auth/cart';
+import HeaderUser from '../../components/HeaderUser';
 import { APP_BASE_URL } from '../../configs/constants';
 import { findAllCategoria } from '../../services/CategoriaService';
 import {
@@ -14,6 +17,8 @@ import {
 } from '../../services/ProdutoService';
 
 const DashboardUserPage = () => {
+  const navigate = useNavigate();
+  const [cart, setCart] = useCart();
   const [categorias, setCategorias] = useState([]);
   const [categoriaId, setCategoriaId] = useState('');
   const [selectedCategorias, setSelectedCategorias] = useState([]);
@@ -111,7 +116,7 @@ const DashboardUserPage = () => {
 
   return (
     <>
-      <Header />
+      <HeaderUser/>
       <div className="sidebar">
         <h3>Categorias de Produtos</h3>
         <div className="card flex justify-content-center">
@@ -172,7 +177,17 @@ const DashboardUserPage = () => {
                     >
                       More Details
                     </button> */}
-                    <button className="btn btn-secondary ms-1">
+                    <button
+                    className="btn btn-secondary ms-1"
+                    onClick={() => {
+                      setCart([...cart, p]);
+                      localStorage.setItem(
+                        "cart",
+                        JSON.stringify([...cart, p])
+                      );
+                      toast.success("Item Added to cart");
+                    }}
+                  >
                       ADD TO CART
                     </button>
                   </div>

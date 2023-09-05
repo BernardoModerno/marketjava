@@ -15,6 +15,7 @@ import ProdutoAdminEditPage from './pages/admin/ProdutoAdminEditPage';
 import ProdutoAdminListPage from './pages/admin/ProdutoAdminListPage';
 import SigninPage from './pages/SigninPage';
 import SignupPage from './pages/SignupPage';
+import CartPage from './pages/user/CartPage';
 import DashboardUserPage from './pages/user/DashboardUserPage';
 import ProfileUserPage from './pages/user/ProfileUserPage';
 
@@ -30,6 +31,11 @@ const App = () => {
         <Route path="/user/dashboard" element={
           <ProtectedRoute userRole="user">
             <DashboardUserPage />
+          </ProtectedRoute>
+        } />
+        <Route path="/user/cart" element={
+          <ProtectedRoute userRole="user">
+            <CartPage />
           </ProtectedRoute>
         } />
         <Route path="/user/profile" element={
