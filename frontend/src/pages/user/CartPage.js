@@ -1,4 +1,4 @@
-import React, {
+import {
   useEffect,
   useState,
 } from 'react';
@@ -9,10 +9,11 @@ import { useCart } from '../../auth/cart';
 import { useAuth } from '../../auth/useAuth';
 import Layout from '../../components/Layout/Layout';
 import { APP_BASE_URL } from '../../configs/constants';
+import api from '../../services/api';
 import { findUsuarioById } from '../../services/UsuarioService';
 
 const CartPage = () => {
-  const {user} = useAuth();
+  const { user } = useAuth();
   const [cart, setCart] = useCart();
   const navigate = useNavigate();
 
@@ -20,25 +21,25 @@ const CartPage = () => {
     id: null,
     nome: "",
     endereco: "",
-    email: ""
-}
+    email: "",
+  };
 
-const [usuario, setUsuario] = useState(emptyUsuario);
+  const [usuario, setUsuario] = useState(emptyUsuario);
 
   const loadUsuario = async () => {
     try {
-        const response = await findUsuarioById(user?.username);
-        setUsuario(response?.data);
-        console.log("Dados do usuario: " + response?.data)
+      const response = await findUsuarioById(user?.username);
+      setUsuario(response?.data);
+      console.log("Dados do usuario: " + response?.data);
     } catch (error) {
-        console.error(error);
+      console.error(error);
     }
-  }
+  };
 
   useEffect(() => {
     loadUsuario();
     // eslint-disable-next-line
-}, []);
+  }, []);
 
   //total preco
   const totalPreco = () => {
@@ -67,31 +68,67 @@ const [usuario, setUsuario] = useState(emptyUsuario);
       console.log(error);
     }
   };
+
+  // const comprarCartItem = async (pid) => {
+  //   try {
+  //     const { data } = await api.post("/api/ordem", {
+  //       envio: 22,
+  //       enderecoEnvio: usuario.endereco,
+  //       items: [
+  //         {
+  //           produtoId: cart?.id,
+  //           quantidade: 1,
+  //         },
+  //       ],
+  //     });
+  //     localStorage.removeItem("cart");
+  //     setCart([]);
+  //     console.log(" Cart é : ...." + data);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
+  const comprarCartItem = async (pid) => {
+    try {
+      const { data } = await api.post("/api/carrinho", {
+        produtoId: cart[0]?.id,
+        quantidade: 1,
+      });
+      localStorage.removeItem("cart");
+      setCart([]);
+      console.log(" Cart é : ...." + data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <Layout>
       <div className="container">
         <div className="row">
           <div className="col-md-12">
             <h1 className="text-center bg-light p-2 mb-1">
-              {`Hello ${user?.token && user?.nome}`}
+              {`Olá ${user?.token && user?.nome}`}
             </h1>
             <h4 className="text-center">
-            <button
+              <button
                 className="btn btn-outline-info mt-2 mr-3"
                 onClick={() => navigate("/user/dashboard")}
               >
                 Voltar para Tela Inicial
               </button>
               {cart?.length
-                ? `You Have ${cart.length} items in your cart ${
-                    user?.token ? "" : "please login to checkout"
+                ? `Você tem ${cart.length} items no seu carrinho ${
+                    user?.token ? "" : "Por favor, faça login para checkout"
                   }`
-                : " Your Cart Is Empty"}
+                : " Seu carrinho está vazio"}
             </h4>
           </div>
         </div>
         <div className="row">
           <div className="col-md-8">
+            <h1>{`Olá ${usuario?.nome}`}</h1>
             {cart?.map((p) => (
               <div className="row mb-2 p-1 card flex-row">
                 <div className="col-md-4">
@@ -111,17 +148,17 @@ const [usuario, setUsuario] = useState(emptyUsuario);
                     className="btn btn-danger"
                     onClick={() => removeCartItem(p.id)}
                   >
-                    Remove
-                  </button>
-                  <button
-                    className="btn btn-info ml-2"
-                    onClick={() => removeCartItem(p.id)}
-                  >
-                    Comprar
+                    Remover
                   </button>
                 </div>
               </div>
             ))}
+            <button
+              className="btn btn-info ml-2"
+              onClick={() => comprarCartItem()}
+            >
+              Adicionar ao carrinho
+            </button>
           </div>
           <div className="col-md-4 text-center">
             <h2>Dados dos items</h2>
