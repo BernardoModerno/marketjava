@@ -1,2 +1,12 @@
 npx create-react-app frontend
 npx create-expo-app mobile
+rnfes snippets
+npm install @react-navigation/native
+npx expo install react-native-screens react-native-safe-area-context
+npm install @react-navigation/native-stack
+npm install @react-navigation/bottom-tabs
+npm cache clean --force
+npm uninstall -g expo-cli
+npm install -g expo-cli@latest
+npm run start --legacy-peer-deps
+npx expo install --fix
