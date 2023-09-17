@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 
+import axios from 'axios';
 import {
+  Alert,
   Image,
   KeyboardAvoidingView,
   Pressable,
@@ -19,6 +21,8 @@ import {
 } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
+import { APP_BASE_URL } from '../config/constants';
+
 const RegisterScreen = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -26,13 +30,44 @@ const RegisterScreen = () => {
   const [email, setEmail] = useState("");
   const navigation = useNavigation();
 
+  const handleRegister = () => {
+    const user = {
+      username,
+      nome,
+      email,
+      password,
+    };
+
+    // send a POST  request to the backend API to register the user
+    axios
+      .post(`${APP_BASE_URL}/auth/signup`, user)
+      .then((response) => {
+        console.log(response);
+        Alert.alert(
+          "Registration successful",
+          "You have been registered Successfully"
+        );
+        setUsername("");
+        setNome("");
+        setEmail("");
+        setPassword("");
+      })
+      .catch((error) => {
+        Alert.alert(
+          "Registration Error",
+          "An error occurred while registering"
+        );
+        console.log("registration failed", error);
+      });
+  };
+
   return (
     <SafeAreaView
       style={{
         flex: 1,
         backgroundColor: "white",
         alignItems: "center",
-        marginTop: 50,
+        marginTop: 3,
       }}
     >
       <View>
@@ -178,7 +213,7 @@ const RegisterScreen = () => {
                 color: "gray",
                 marginVertical: 10,
                 width: 300,
-                fontSize: email ? 16 : 16,
+                fontSize: password ? 16 : 16,
               }}
               placeholder="Entre com sua senha"
             />
@@ -203,6 +238,7 @@ const RegisterScreen = () => {
         <View style={{ marginTop: 80 }} />
 
         <Pressable
+          onPress={handleRegister}
           style={{
             width: 200,
             backgroundColor: "#FEBE10",

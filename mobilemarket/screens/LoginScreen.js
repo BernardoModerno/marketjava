@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 
+import axios from 'axios';
 import {
+  Alert,
   Image,
   KeyboardAvoidingView,
   Pressable,
@@ -17,11 +19,30 @@ import {
 } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
+import { APP_BASE_URL } from '../config/constants';
+
 const LoginScreen = () => {
   
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigation = useNavigation();
+
+  const handleLogin = () => {
+    const user = {
+      username,
+      password,
+    };
+
+    axios
+      .post(`${APP_BASE_URL}/auth/signin`, user)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        Alert.alert("Login Error", "Invalid Email");
+        console.log(error);
+      });
+  };
   return (
     <SafeAreaView
       style={{ flex: 1, backgroundColor: "white", alignItems: "center" }}
@@ -110,7 +131,7 @@ const LoginScreen = () => {
                 width: 300,
                 fontSize: password ? 16 : 16,
               }}
-              placeholder="enter your Password"
+              placeholder="Entre com sua senha."
             />
           </View>
         </View>
@@ -133,6 +154,7 @@ const LoginScreen = () => {
         <View style={{ marginTop: 80 }} />
 
         <Pressable
+          onPress={handleLogin}
           style={{
             width: 200,
             backgroundColor: "#FEBE10",
