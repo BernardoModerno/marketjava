@@ -17,6 +17,7 @@ import {
   AntDesign,
   Feather,
 } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 
 import { APP_BASE_URL } from '../config/constants';
@@ -37,6 +38,9 @@ const LoginScreen = () => {
       .post(`${APP_BASE_URL}/auth/signin`, user)
       .then((response) => {
         console.log(response);
+        const token = response.data.token;
+        AsyncStorage.setItem("authToken", token);
+        navigation.replace("Main");
       })
       .catch((error) => {
         Alert.alert("Login Error", "Invalid Email");
